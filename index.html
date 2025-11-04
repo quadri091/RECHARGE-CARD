@@ -324,18 +324,9 @@
       return;
     }
     result.style.display = "flex";
-    let num1 = Math.floor(Math.random() * 10);
-    let num2 = Math.floor(Math.random() * 10);
-    let num3 = Math.floor(Math.random() * 10);
-    let num4 = Math.floor(Math.random() * 10);
-    let num5 = Math.floor(Math.random() * 10);
-    let num6 = Math.floor(Math.random() * 10);
-    let num7 = Math.floor(Math.random() * 10);
-    let num8 = Math.floor(Math.random() * 10);
-    let num9 = Math.floor(Math.random() * 10);
-    let num10 = Math.floor(Math.random() * 10);
+    let num1 = Math.floor(Math.random() * 10000000000);
 
-    let digit = `${num1}${num2}${num3}${num4}${num5}${num6}${num7}${num8}${num9}${num10}`;
+    let digit = num1;
 
     spanTop.innerHTML = digit;
 
