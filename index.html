@@ -226,7 +226,9 @@
           <button class="btn btn-primary fw-bold news" onclick="generate()">
             Generate Code
           </button>
-          <button class="btn btn-primary fw-bold news">Load Card</button>
+          <button class="btn btn-primary fw-bold news" onclick="load()">
+            Load Card
+          </button>
         </div>
         <div class="result">
           <span id="top"></span>
@@ -268,9 +270,10 @@
   let spanMessage = document.getElementById("bottom");
   let tbody = document.getElementById("t-body");
   let selectedNetwork = "";
-  let count = 1;
+  let condition = "";
   let pin = "PIN";
   let newInp = firstInput.value.trim();
+  let mini = [];
 
   function mtn(params) {
     selectedNetwork = params;
@@ -346,8 +349,7 @@
       return;
     }
 
-    let conf = digit;
-    secondInput.value = `*311*${conf}#`;
+    secondInput.value = `*311*${spanTop.innerHTML}#`;
 
     if (selectedNetwork === "MTN") {
       spanTop.style.color = "#ffc107";
@@ -364,15 +366,62 @@
     }
     spanMessage.innerHTML = `This is your code for ₦${firstInput.value.trim()}  ${selectedNetwork} card`;
 
-    tbody.innerHTML += `<tr id="tr">
-        <td>${count}</td>
-        <td>${firstInput.value}</td>
-        <td>${selectedNetwork}</td>
-        <td>False</td>
-        <td>${spanTop.innerHTML}</td>
-      </tr>`;
-    count++;
+    condition = "False";
+
+    display();
+  }
+
+  function load() {
+    for (let index2 = 0; index2 < mini.length; index2++) {
+      if (secondInput.value.trim() === `*311*${mini[index2].pin}#`) {
+        alert(
+          `You have successfully loaded ₦${mini[index2].amount} of ${mini[index2].networkType} card`
+        );
+
+        mini[index2].used = "True";
+
+        tbody.innerHTML = "";
+
+        for (let index3 = 0; index3 < mini.length; index3++) {
+          tbody.innerHTML += `<tr">
+            <td>${index3 + 1}</td>
+            <td>${mini[index3].amount}</td>
+            <td>${mini[index3].networkType}</td>
+            <td>${mini[index3].used}</td>
+            <td>${mini[index3].pin}</td>
+          </tr>`;
+        }
+      } else {
+        alert("Invalid Code");
+      }
+    }
 
     firstInput.value = "";
+    secondInput.value = "*311*PIN#";
+  }
+
+  function display() {
+    let object = {
+      amount: firstInput.value.trim(),
+      networkType: selectedNetwork,
+      used: condition,
+      pin: spanTop.innerHTML,
+    };
+
+    mini.push(object);
+
+    console.log(mini);
+
+    tbody.innerHTML = "";
+
+    for (let index = 0; index < mini.length; index++) {
+      tbody.innerHTML += `<tr">
+            <td>${index + 1}</td>
+            <td>${mini[index].amount}</td>
+            <td>${mini[index].networkType}</td>
+            <td>${mini[index].used}</td>
+            <td>${mini[index].pin}</td>
+          </tr>`;
+    }
   }
 </script>
