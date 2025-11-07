@@ -235,9 +235,15 @@
           <span id="bottom"></span>
         </div>
         <div class="d-flex justify-content-between">
-          <button class="btn btn-primary fw-bold news">All Cards</button>
-          <button class="btn btn-primary fw-bold news">Used Cards</button>
-          <button class="btn btn-primary fw-bold news">Unused Card</button>
+          <button class="btn btn-primary fw-bold news" onclick="display()">
+            All Cards
+          </button>
+          <button class="btn btn-primary fw-bold news" onclick="used()">
+            Used Cards
+          </button>
+          <button class="btn btn-primary fw-bold news" onclick="unused()">
+            Unused Card
+          </button>
         </div>
 
         <table>
@@ -368,43 +374,6 @@
 
     condition = "False";
 
-    display();
-  }
-
-  function load() {
-    for (let index2 = 0; index2 < mini.length; index2++) {
-      if (secondInput.value.trim() === `*311*${mini[index2].pin}#`) {
-        alert(
-          `You have successfully loaded ₦${mini[index2].amount} of ${mini[index2].networkType} card`
-        );
-
-        mini[index2].used = "True";
-
-        tbody.innerHTML = "";
-
-        for (let index3 = 0; index3 < mini.length; index3++) {
-          tbody.innerHTML += `<tr">
-            <td>${index3 + 1}</td>
-            <td>${mini[index3].amount}</td>
-            <td>${mini[index3].networkType}</td>
-            <td>${mini[index3].used}</td>
-            <td>${mini[index3].pin}</td>
-          </tr>`;
-        }
-
-        break;
-      } else {
-        alert("Invalid Code");
-      }
-    }
-
-    firstInput.value = "";
-    secondInput.value = "*311*PIN#";
-    spanTop.innerHTML = "";
-    spanMessage.innerHTML = "";
-  }
-
-  function display() {
     let object = {
       amount: firstInput.value.trim(),
       networkType: selectedNetwork,
@@ -416,6 +385,44 @@
 
     console.log(mini);
 
+    display();
+  }
+
+  function load() {
+    for (let index2 = 0; index2 < mini.length; index2++) {
+      if (secondInput.value.trim() === `*311*${mini[index2].pin}#`) {
+        if (mini[index2].used === "True") {
+          alert("Card has already been used.");
+          break;
+        }
+
+        alert(
+          `You have successfully loaded ₦${mini[index2].amount} of ${mini[index2].networkType} card`
+        );
+
+        mini[index2].used = "True";
+
+        tbody.innerHTML = "";
+        for (let index3 = 0; index3 < mini.length; index3++) {
+          tbody.innerHTML += `<tr>
+                    <td>${index3 + 1}</td>
+                    <td>${mini[index3].amount}</td>
+                    <td>${mini[index3].networkType}</td>
+                    <td>${mini[index3].used}</td>
+                    <td>${mini[index3].pin}</td>
+                </tr>`;
+        }
+        break;
+      }
+    }
+
+    firstInput.value = "";
+    secondInput.value = "*311*PIN#";
+    spanTop.innerHTML = "";
+    spanMessage.innerHTML = "";
+  }
+
+  function display() {
     tbody.innerHTML = "";
 
     for (let index = 0; index < mini.length; index++) {
@@ -426,6 +433,36 @@
             <td>${mini[index].used}</td>
             <td>${mini[index].pin}</td>
           </tr>`;
+    }
+  }
+
+  function used() {
+    tbody.innerHTML = "";
+    for (let index = 0; index < mini.length; index++) {
+      if (mini[index].used === "True") {
+        tbody.innerHTML += `<tr">
+            <td>${index + 1}</td>
+            <td>${mini[index].amount}</td>
+            <td>${mini[index].networkType}</td>
+            <td>${mini[index].used}</td>
+            <td>${mini[index].pin}</td>
+          </tr>`;
+      }
+    }
+  }
+
+  function unused() {
+    tbody.innerHTML = "";
+    for (let index = 0; index < mini.length; index++) {
+      if (mini[index].used === "False") {
+        tbody.innerHTML += `<tr">
+            <td>${index + 1}</td>
+            <td>${mini[index].amount}</td>
+            <td>${mini[index].networkType}</td>
+            <td>${mini[index].used}</td>
+            <td>${mini[index].pin}</td>
+          </tr>`;
+      }
     }
   }
 </script>
