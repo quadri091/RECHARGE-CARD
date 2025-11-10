@@ -438,31 +438,32 @@
 
   function used() {
     tbody.innerHTML = "";
-    for (let index = 0; index < mini.length; index++) {
-      if (mini[index].used === "True") {
-        tbody.innerHTML += `<tr">
-            <td>${index + 1}</td>
-            <td>${mini[index].amount}</td>
-            <td>${mini[index].networkType}</td>
-            <td>${mini[index].used}</td>
-            <td>${mini[index].pin}</td>
-          </tr>`;
-      }
-    }
+    let search = mini.filter(function (params) {
+      return params.used === "True";
+    });
+    search.forEach(function (card, index) {
+      tbody.innerHTML += `<tr>
+          <td>${index + 1}</td>
+          <td>${mini[index].amount}</td>
+          <td>${mini[index].networkType}</td>
+          <td>${mini[index].used}</td>
+          <td>${mini[index].pin}</td>
+        </tr>`;
+    });
   }
 
   function unused() {
-    tbody.innerHTML = "";
-    for (let index = 0; index < mini.length; index++) {
-      if (mini[index].used === "False") {
-        tbody.innerHTML += `<tr">
-            <td>${index + 1}</td>
-            <td>${mini[index].amount}</td>
-            <td>${mini[index].networkType}</td>
-            <td>${mini[index].used}</td>
-            <td>${mini[index].pin}</td>
-          </tr>`;
-      }
-    }
+    let search = mini.filter(function (params) {
+      return params.used === "False";
+    });
+    search.forEach(function (card, index) {
+      tbody.innerHTML += `<tr>
+          <td>${index + 1}</td>
+          <td>${mini[index].amount}</td>
+          <td>${mini[index].networkType}</td>
+          <td>${mini[index].used}</td>
+          <td>${mini[index].pin}</td>
+        </tr>`;
+    });
   }
 </script>
