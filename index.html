@@ -452,19 +452,19 @@
     });
   }
 
-  function unused() {
-    tbody.innerHTML = "";
-    let search = mini.filter(function (params) {
-      return params.used === "False";
-    });
-    search.forEach(function (card, index) {
-      tbody.innerHTML += `<tr>
-      <td>${index + 1}</td>
-      <td>${card.amount}</td> 
-      <td>${card.networkType}</td>
-      <td>${card.used}</td> 
-      <td>${card.pin}</td> 
-    </tr>`;
-    });
-  }
+  // function unused() {
+  //   tbody.innerHTML = "";
+  //   let search = mini.filter(function (params) {
+  //     return params.used === "False";
+  //   });
+  //   search.forEach(function (card, index) {
+  //     tbody.innerHTML += `<tr>
+  //     <td>${index + 1}</td>
+  //     <td>${card.amount}</td>
+  //     <td>${card.networkType}</td>
+  //     <td>${card.used}</td>
+  //     <td>${card.pin}</td>
+  //   </tr>`;
+  //   });
+  // }
 </script>
